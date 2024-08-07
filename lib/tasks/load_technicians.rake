@@ -7,13 +7,12 @@ namespace :db do
 
     ActiveRecord::Base.transaction do
       CSV.foreach(csv_file_path, headers: true) do |row|
-        tech_id = row['tech_id'].to_i
+        tech_id = row[0].to_i
         name = row['name']
+        #puts "ID: #{row[0]}"
+        technician = Technician.new(tech_id: tech_id,name: name)
 
-        technician = Technician.find_or_initialize_by(tech_id: tech_id)
-        technician.name = name
-
-        if technician.save
+        if technician.tech_id.present? && technician.save
           puts "Successfully saved: #{technician.name} with tech_id #{technician.tech_id}"
         else
           puts "Failed to save: #{technician.errors.full_messages.join(", ")}"
