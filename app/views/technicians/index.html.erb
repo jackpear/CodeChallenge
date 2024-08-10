@@ -33,8 +33,15 @@
                 <div>Price: <%=price%></div>
               </div>
             <% end %>
-            <% betweens = calculate_gaps(tuples) %>
-            <% puts betweens %>
+            <% betweens = calculate_gaps(tuples,2) %>
+            <% betweens.each do |gap| %>
+              <div 
+                class="work-gap" 
+                style="top: <%=time_to_pxOffset(gap[0])+30%>px; height: <%=gap[1]%>px;"
+                data-start=<%=gap[0].strftime("%H:%M")%>
+                data-end=<%=get_end_time(gap[0],gap[1],2).strftime("%H:%M")%>
+              ></div>
+            <% end %>
             
  
           </div>
