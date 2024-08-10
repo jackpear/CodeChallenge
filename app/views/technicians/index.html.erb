@@ -1,9 +1,47 @@
-<h1>Technicians</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scheduler</title>
+    <%= csrf_meta_tags%>
+    <%= csp_meta_tag%>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+  </head>
+  <body>
+    <div style="text-align: center; margin: 50px;"><h1>Schedule</h1></div>
+    <div class="schedule">
+        <div class="time-labels" style="width: 70px">
+            <div class="tHeader">Time</div>
+            <% @times.each do |time| %>
+              <div class="time-label"><%=time%></div>
+            <% end %>
+        </div>
+        <% @technicians.each do |tech| %>
+          <div class="technician-column">
+            <div class="tHeader"><%=tech.name%></div>
+            <% orders = @orders.select { |ord| ord.technician_id == tech.tech_id }%>
+            <% tuples = orders_to_tuples(orders,2) %>
+            <% %>
+            <% @times.each do |time| %>
+              <div class="time-slot" data-time="<%=time%>"></div>
+            <% end %>
+            <% tuples.each do |start, height, lID, price| %>
+              <div class="work-order" style="top: <%=time_to_pxOffset(start)+30%>px; height: <%=height-2%>px;">
+                <% loc = @locations.find { |loc| loc.loc_id == lID }%>
+                <div>Location: <%= loc.name%></div>
+                <div>City: <%= loc.city %></div>
+                <div>Start: <%=time_to_string(start) %></div>
+                <div>Price: <%=price%></div>
+              </div>
+            <% end %>
+            <% betweens = calculate_gaps(tuples) %>
+            <% puts betweens %>
+            
+ 
+          </div>
+        <% end %>
+    </div>
+    <div class="popup" id="popup"></div>
+    <script src="javascripts/main.js"></script>
 
-<ul>
-  <% @technicians.each do |tech| %>
-    <li>
-      <%= tech.tech_id %>: <%= tech.name%>
-    </li>
-  <% end %>
-</ul
+  </body>
+</html>

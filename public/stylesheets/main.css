@@ -1,0 +1,71 @@
+
+.schedule {
+    display:flex;
+    grid-template-columns: 120px repeat(3, 1fr);
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    background-color: white;
+}
+.top {
+    min-height: 100px;
+    text-align: center;
+}
+.time-labels {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+}
+.time-label {
+    min-height: 120px; /* 1 hour = 60px */
+    border-bottom: 1px solid #ccc;
+}
+.technician-column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 15em;
+}
+.time-slot {
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+.work-order {
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+}
+.work-gap {
+    position: absolute;
+    background-color: turquoise;
+}
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.tHeader {
+    margin-bottom: 10px;
+    font-weight: bolder;
+    text-align: center;
+    border-right: 1px solid #000;
+}
+
+.technician-column .work-order:nth-child(odd) {
+    background-color: lightblue;
+}
+.technician-column .work-order:nth-child(even) {
+    background-color: lightcyan;
+}
+
+.work-order:hover {
+    z-index: 100;
+}
