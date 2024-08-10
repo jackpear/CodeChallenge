@@ -41,8 +41,8 @@
 }
 .work-gap {
     position: absolute;
-    background-color: turquoise;
-    min-width: 15em;
+    background-color: transparent;
+    min-width: 100%;
 }
 .popup {
     position: absolute;

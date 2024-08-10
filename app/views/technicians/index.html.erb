@@ -38,8 +38,11 @@
               <div 
                 class="work-gap" 
                 style="top: <%=time_to_pxOffset(gap[0])+30%>px; height: <%=gap[1]%>px;"
-                data-start=<%=gap[0].strftime("%H:%M")%>
-                data-end=<%=get_end_time(gap[0],gap[1],2).strftime("%H:%M")%>
+                <%start = gap[0].strftime("%H:%M")%>
+                <%e = get_end_time(gap[0],gap[1],2).strftime("%H:%M")%>
+                data-start=<%=start%>
+                data-end=<%=e%>
+                title="<%=start%> - <%=e%>"
               ></div>
             <% end %>
             
