@@ -15,29 +15,36 @@
               <div class="time-label"><%=time%></div> 
             <% end %>
         </div>
+
+        <%# Creation of Technician Columns%>
         <% @technicians.each do |tech| %>
           <div class="technician-column">
             <div class="tHeader"><%=tech.name%></div>
             <% orders = @orders.select { |ord| ord.technician_id == tech.tech_id }%>
             <% tuples = orders_to_tuples(orders) %>
-            <% %>
+
+            <%# Creation Time slots (in background - these are just here to show horizontal lines each hour) %> 
             <% @times.each do |time| %>
               <div class="time-slot" data-time="<%=time%>"></div>
             <% end %>
+
+            <%# Creation of work orders %>
             <% tuples.each do |start, height, lID, price| %>
-              <div class="work-order" style="top: <%=time_to_pxOffset(start)+30%>px; height: <%=height*2-2%>px;"> <%#All heights are *2 since a time slot is 120px tall (2*60 minutes)%>
+              <div class="work-order" style="top: <%=time_to_pxOffset(start)*2+32%>px; height: <%=height*2%>px;"> <%#All heights are *2 since a time slot is 120px tall (2*60 minutes)%>
                 <% loc = @locations.find { |loc| loc.loc_id == lID }%>
                 <div>Location: <%= loc.name%></div>
                 <div>City: <%= loc.city %></div>
-                <div>Start: <%=time_to_string(start) %></div>
+                <div>Start: <%=start.strftime("%H:%M") %></div>
                 <div>Price: <%=price%></div>
               </div>
             <% end %>
+
+            <%# Creation of between divs %>
             <% betweens = calculate_gaps(tuples) %> <%# Betweens are divs used to capture clicks inbetween the orders, for requirement 4 popup%>
             <% betweens.each do |gap| %>
               <div 
                 class="work-gap" 
-                style="top: <%=time_to_pxOffset(gap[0])+30%>px; height: <%=gap[1]*2%>px;"
+                style="top: <%=time_to_pxOffset(gap[0])*2+32%>px; height: <%=gap[1]*2%>px;"
                 <%start = gap[0].strftime("%H:%M")%>
                 <%e = get_end_time(gap[0],gap[1]).strftime("%H:%M")%>
                 data-start=<%=start%>

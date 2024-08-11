@@ -1,24 +1,4 @@
 module ApplicationHelper
- 
-  def time_to_string(time)
-    "#{time.hour}:#{time.min.to_s.rjust(2,'0')}"
-  end
-
-  def orders_to_times(orders)
-    earliest_time = Time.parse("15:00")
-    tuples = orders.map do |order|
-      puts "Start time: #{order.time}"
-      start_time = order.time 
-      end_time = start_time + order.duration*60
-      [start_time,end_time]
-      if (start_time < earliest_time)
-        earliest_time = start_time
-      end
-    end
-    betweens = [Time.parse("6:00"),time_to_minutes(earliest_time)-360]
-    puts "Minutes to time #{earliest_time} ----- #{time_to_minutes(earliest_time)}"
-    tuples
-  end
 
   def orders_to_tuples(orders)
     tuples = orders.map do |order|
@@ -31,7 +11,7 @@ module ApplicationHelper
 
   def time_to_pxOffset(time)
     #Earliest start time is always 6:00 or 360 minutes
-    (time.hour*60 + time.min - 360)*2
+    (time.hour*60 + time.min - 360)
   end
 
   def times_to_minutes(time1, time2)
