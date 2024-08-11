@@ -12,20 +12,20 @@
         <div class="time-labels" style="width: 70px">
             <div class="tHeader">Time</div>
             <% @times.each do |time| %>
-              <div class="time-label"><%=time%></div>
+              <div class="time-label"><%=time%></div> 
             <% end %>
         </div>
         <% @technicians.each do |tech| %>
           <div class="technician-column">
             <div class="tHeader"><%=tech.name%></div>
             <% orders = @orders.select { |ord| ord.technician_id == tech.tech_id }%>
-            <% tuples = orders_to_tuples(orders,2) %>
+            <% tuples = orders_to_tuples(orders) %>
             <% %>
             <% @times.each do |time| %>
               <div class="time-slot" data-time="<%=time%>"></div>
             <% end %>
             <% tuples.each do |start, height, lID, price| %>
-              <div class="work-order" style="top: <%=time_to_pxOffset(start)+30%>px; height: <%=height-2%>px;">
+              <div class="work-order" style="top: <%=time_to_pxOffset(start)+30%>px; height: <%=height*2-2%>px;"> <%#All heights are *2 since a time slot is 120px tall (2*60 minutes)%>
                 <% loc = @locations.find { |loc| loc.loc_id == lID }%>
                 <div>Location: <%= loc.name%></div>
                 <div>City: <%= loc.city %></div>
@@ -33,13 +33,13 @@
                 <div>Price: <%=price%></div>
               </div>
             <% end %>
-            <% betweens = calculate_gaps(tuples,2) %>
+            <% betweens = calculate_gaps(tuples) %> <%# Betweens are divs used to capture clicks inbetween the orders, for requirement 4 popup%>
             <% betweens.each do |gap| %>
               <div 
                 class="work-gap" 
-                style="top: <%=time_to_pxOffset(gap[0])+30%>px; height: <%=gap[1]%>px;"
+                style="top: <%=time_to_pxOffset(gap[0])+30%>px; height: <%=gap[1]*2%>px;"
                 <%start = gap[0].strftime("%H:%M")%>
-                <%e = get_end_time(gap[0],gap[1],2).strftime("%H:%M")%>
+                <%e = get_end_time(gap[0],gap[1]).strftime("%H:%M")%>
                 data-start=<%=start%>
                 data-end=<%=e%>
                 title="<%=start%> - <%=e%>"
@@ -50,7 +50,6 @@
           </div>
         <% end %>
     </div>
-    <div class="popup" id="popup"></div>
     <script src="javascripts/main.js"></script>
 
   </body>
