@@ -22,6 +22,8 @@ The tasks/rakes I made are used by placing the csv's with the specific names lik
 * rails db:load_orders
 * rails db:load_technicians
 
+Starting the server is `$>rails server`
+
 To clear out the databases I just go into `$>rails console` and do `>Technician.destroy_all` and the same for the other 2 (Technician, Order and Location)
 
 I think the generation of the work orders and 'betweens' in the html is the most complicated part. Both of these were stored as lists of tuples when generating the html
