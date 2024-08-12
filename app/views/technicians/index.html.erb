@@ -4,7 +4,7 @@
     <title>Scheduler</title>
     <%= csrf_meta_tags%>
     <%= csp_meta_tag%>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"> <%# I saw there was a way to include the css and js within this erb buit I couldn't figure it out so I just did extra requests%>
   </head>
   <body>
     <div style="text-align: center; margin: 50px;"><h1>Schedule</h1></div>
@@ -29,8 +29,8 @@
             <% end %>
 
             <%# Creation of work orders %>
-            <% tuples.each do |start, height, lID, price| %>
-              <div class="work-order" style="top: <%=time_to_pxOffset(start)*2+32%>px; height: <%=height*2%>px;"> <%#All heights are *2 since a time slot is 120px tall (2*60 minutes)%>
+            <% tuples.each do |start, duration, lID, price| %>
+              <div class="work-order" style="top: <%=time_to_pxOffset(start)*2+32%>px; height: <%=duration*2%>px;"> <%#All heights are *2 since a time slot is 120px tall (2*60 minutes)%>
                 <% loc = @locations.find { |loc| loc.loc_id == lID }%>
                 <div>Location: <%= loc.name%></div>
                 <div>City: <%= loc.city %></div>
@@ -41,15 +41,15 @@
 
             <%# Creation of between divs %>
             <% betweens = calculate_gaps(tuples) %> <%# Betweens are divs used to capture clicks inbetween the orders, for requirement 4 popup%>
-            <% betweens.each do |gap| %>
+            <% betweens.each do |start, duration| %>
               <div 
                 class="work-gap" 
-                style="top: <%=time_to_pxOffset(gap[0])*2+32%>px; height: <%=gap[1]*2%>px;"
-                <%start = gap[0].strftime("%H:%M")%>
-                <%e = get_end_time(gap[0],gap[1]).strftime("%H:%M")%>
-                data-start=<%=start%>
+                style="top: <%=time_to_pxOffset(start)*2+32%>px; height: <%=duration*2%>px;"
+                <%start_string = start.strftime("%H:%M")%>
+                <%e = get_end_time(start,duration).strftime("%H:%M")%>
+                data-start=<%=start_string%>
                 data-end=<%=e%>
-                title="<%=start%> - <%=e%>"
+                title="<%=start_string%> - <%=e%>"
               ></div>
             <% end %>
             
