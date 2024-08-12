@@ -22,6 +22,8 @@ The tasks/rakes I made are used by placing the csv's with the specific names lik
 * rails db:load_orders
 * rails db:load_technicians
 
+To clear out the databases I just go into `$>rails console` and do `>Technician.destroy_all` and the same for the other 2 (Technician, Order and Location)
+
 I think the generation of the work orders and 'betweens' in the html is the most complicated part. Both of these were stored as lists of tuples when generating the html
 * tuples = 4-tuple [start time,duration, location id, price]
 * betweens = 2-tuple [start time, duration]
@@ -41,3 +43,4 @@ Betweens are invisible but if you wanted to see what they look like you change t
 1) dynamic file names for inputting csv's. Right now they need to have a specific, hardcoded name and be in the correct folder in order to be raked in. Adding arguments to input the path and name of a data csv would be better.
 2) The schedule on the webpage is a static size. Making the schedule expand and contract to fit the window size would be better.
 3) Overlapping work orders on the schedule. One of the work orders overlaps another one and you can see the whole thing if you hover your mouse over the visible bottom section, it would be better to make it more visible. 
+4) The rendering involves using all the data entries from the Location, Technician, Order models which if the database was large would be inefficient. Only selecting the orders and other objects that are relevant for a specific day would be better.
