@@ -1,11 +1,5 @@
 # README
 
-# Technician Scheduler
- 2) Sufficient information to run the application on a new machine (complete Gemfile, 
-Ruby version, rake tasks to run, etc.) - can be included in Readme.
- 3) A brief description of the approach taken to designing the application, problems 
-faced, and possible future improvements.
-
 Technologies downloaded:
 * Ruby 3.3.4
 * SQLite3 3.46.0
@@ -47,3 +41,5 @@ Betweens are invisible but if you wanted to see what they look like you change t
 3) Overlapping work orders on the schedule. One of the work orders overlaps another one and you can see the whole thing if you hover your mouse over the visible bottom section, it would be better to make it more visible. 
 4) The rendering involves using all the data entries from the Location, Technician, Order models which if the database was large would be inefficient. Only selecting the orders and other objects that are relevant for a specific day would be better.
 5) I think the obvious next steps of this would be the ability to POST new orders, locations and technicians and have a multiple day schedule but those weren't in the requirements
+
+![image](https://github.com/user-attachments/assets/970aea1a-2d5f-496b-ae1c-24aeb446c856)
